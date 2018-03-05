@@ -5,7 +5,7 @@
 ## Makeile for philosohpers
 ##
 
-CC	= gcc -o2 -g
+CC	= gcc -o2
 
 RM	= rm -f
 
