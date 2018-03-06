@@ -5,6 +5,7 @@
 ** Array initialisers
 */
 
+#include <stdlib.h>
 #include "philosophers.h"
 
 void init_chopsticks(t_mutex_info *chopsticks, const int nbr_philo)
@@ -17,7 +18,7 @@ void init_chopsticks(t_mutex_info *chopsticks, const int nbr_philo)
 
 void init_philosopher(t_philo *philosopher, const int max_eat)
 {
-	philosopher->curr_state = THINK;
+	philosopher->curr_state = rand() % 3;
 	philosopher->curr_eat = 0;
 	philosopher->max_eat = max_eat;
 }
