@@ -22,11 +22,11 @@ void philo_eat(t_philo *philo,
 		lphilo_take_chopstick(&left_chopstick->mutex);
 		lphilo_take_chopstick(&right_chopstick->mutex);
 		lphilo_eat();
-		sleep(EAT_TIME);
 		pthread_mutex_unlock(&left_chopstick->mutex);
 		pthread_mutex_unlock(&right_chopstick->mutex);
 		lphilo_release_chopstick(&left_chopstick->mutex);
 		lphilo_release_chopstick(&right_chopstick->mutex);
+		sleep(EAT_TIME);
 		philo->curr_eat++;
 		philo->curr_state = SLEEP;
 		left_chopstick->locked = 0;
@@ -54,9 +54,9 @@ void philo_think(t_philo *philo,
 		pthread_mutex_lock(&left_chopstick->mutex);
 		lphilo_take_chopstick(&left_chopstick->mutex);
 		lphilo_think();
-		sleep(THINK_TIME);
 		pthread_mutex_unlock(&left_chopstick->mutex);
 		lphilo_release_chopstick(&left_chopstick->mutex);
+		sleep(THINK_TIME);
 		philo->curr_state = EAT;
 		left_chopstick->locked = 0;
 	} else if (right_chopstick->locked == 0) {
@@ -64,9 +64,9 @@ void philo_think(t_philo *philo,
 		pthread_mutex_lock(&right_chopstick->mutex);
 		lphilo_take_chopstick(&right_chopstick->mutex);
 		lphilo_think();
-		sleep(THINK_TIME);
 		pthread_mutex_unlock(&right_chopstick->mutex);
 		lphilo_release_chopstick(&right_chopstick->mutex);
+		sleep(THINK_TIME);
 		philo->curr_state = EAT;
 		right_chopstick->locked = 0;
 	}
