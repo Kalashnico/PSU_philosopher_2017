@@ -39,13 +39,8 @@ void philo_eat(t_philo *philo,
 
 void philo_sleep(t_philo *philo)
 {
-	int random = rand() % 2;
-
 	lphilo_sleep();
-	if (random == 0)
-		philo->curr_state = EAT;
-	else if (random == 1)
-		philo->curr_state = THINK;
+	philo->curr_state = THINK;
 }
 
 void philo_think(t_philo *philo,

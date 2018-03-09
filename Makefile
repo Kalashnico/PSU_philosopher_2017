@@ -11,11 +11,11 @@ RM	= rm -f
 
 CFLAGS = -I./include
 CFLAGS += -W -Wall -Wextra -Werror
-LDFLAGS = -L./lib -lriceferee -lpthread
+LDFLAGS = -Llib -lriceferee -lpthread
 
 SRCS	= main.c		\
 	  philosophers.c	\
-	  array_inits.c		
+	  array_inits.c		\
 
 OBJS    = $(addprefix src/, $(SRCS:.c=.o))
 
