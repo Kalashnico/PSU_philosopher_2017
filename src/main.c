@@ -43,12 +43,12 @@ int main(int ac, char **av)
 	srand(time(NULL));
 	if (ac == 2 && strcmp(av[1], "--help") == 0)
 		print_help(av[0]);
-	else if (ac != 5)
-		return (0);
-	if (check_parsing(av) == 0) {
-		RCFStartup(ac, av);
-		status = setup(atoi(av[2]), atoi(av[4]));
-		RCFCleanup();
+	else if (ac == 5) {
+		if (check_parsing(av) == 0) {
+			RCFStartup(ac, av);
+			status = setup(atoi(av[2]), atoi(av[4]));
+			RCFCleanup();
+		}
 	}
 	return (status);
 }

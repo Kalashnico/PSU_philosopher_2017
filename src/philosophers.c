@@ -82,7 +82,7 @@ void *thread_entry(void *arguments)
 			philo_eat(philo, left_chopstick, right_chopstick);
 		else if (philo->curr_state == SLEEP)
 			philo_sleep(philo);
-		else if (philo->curr_state == THINK)
+		else
 			philo_think(philo, left_chopstick, right_chopstick);
 	}
 	return (0);
