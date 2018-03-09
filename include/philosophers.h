@@ -34,8 +34,8 @@ typedef struct s_args {
 }	t_args;
 
 /* sleep times in seconds */
-	#define EAT_TIME	0
-	#define THINK_TIME	0
+	#define EAT_TIME	1
+	#define THINK_TIME	1
 
 /* philososphers.c */
 int setup(int, int);
