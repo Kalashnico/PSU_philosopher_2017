@@ -15,18 +15,21 @@ void philo_eat(t_philo *philo,
 		t_mutex_info *right_chopstick)
 {
 	if (left_chopstick->locked == 0 && right_chopstick->locked == 0) {
+		pthread_mutex_lock(&left_chopstick->mutex);
+		if (pthread_mutex_trylock(&right_chopstick->mutex) != 0) {
+			pthread_mutex_unlock(&left_chopstick->mutex);
+			return;
+		}
 		left_chopstick->locked = 1;
 		right_chopstick->locked = 1;
-		pthread_mutex_lock(&left_chopstick->mutex);
-		pthread_mutex_lock(&right_chopstick->mutex);
 		lphilo_take_chopstick(&left_chopstick->mutex);
 		lphilo_take_chopstick(&right_chopstick->mutex);
 		lphilo_eat();
-		pthread_mutex_unlock(&left_chopstick->mutex);
 		pthread_mutex_unlock(&right_chopstick->mutex);
-		lphilo_release_chopstick(&left_chopstick->mutex);
-		lphilo_release_chopstick(&right_chopstick->mutex);
+		pthread_mutex_unlock(&left_chopstick->mutex);
 		sleep(EAT_TIME);
+		lphilo_release_chopstick(&right_chopstick->mutex);
+		lphilo_release_chopstick(&left_chopstick->mutex);
 		philo->curr_eat++;
 		philo->curr_state = SLEEP;
 		left_chopstick->locked = 0;
@@ -50,23 +53,23 @@ void philo_think(t_philo *philo,
 		t_mutex_info *right_chopstick)
 {
 	if (left_chopstick->locked == 0) {
-		left_chopstick->locked = 1;
 		pthread_mutex_lock(&left_chopstick->mutex);
+		left_chopstick->locked = 1;
 		lphilo_take_chopstick(&left_chopstick->mutex);
 		lphilo_think();
 		pthread_mutex_unlock(&left_chopstick->mutex);
-		lphilo_release_chopstick(&left_chopstick->mutex);
 		sleep(THINK_TIME);
+		lphilo_release_chopstick(&left_chopstick->mutex);
 		philo->curr_state = EAT;
 		left_chopstick->locked = 0;
 	} else if (right_chopstick->locked == 0) {
-		right_chopstick->locked = 1;
 		pthread_mutex_lock(&right_chopstick->mutex);
+		right_chopstick->locked = 1;
 		lphilo_take_chopstick(&right_chopstick->mutex);
 		lphilo_think();
 		pthread_mutex_unlock(&right_chopstick->mutex);
-		lphilo_release_chopstick(&right_chopstick->mutex);
 		sleep(THINK_TIME);
+		lphilo_release_chopstick(&right_chopstick->mutex);
 		philo->curr_state = EAT;
 		right_chopstick->locked = 0;
 	}
