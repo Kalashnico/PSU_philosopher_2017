@@ -11,7 +11,7 @@ RM	= rm -f
 
 CFLAGS = -I./include
 CFLAGS += -W -Wall -Wextra -Werror
-LDFLAGS = -L. -lriceferee -lpthread
+LDFLAGS = -Llib -lriceferee -lpthread
 
 SRCS	= main.c		\
 	  philosophers.c	\
